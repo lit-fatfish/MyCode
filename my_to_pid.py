@@ -45,10 +45,12 @@ if platform.system() == 'Windows':
     list_file_path = "new_list.txt"
     json_file_path = "."
 elif platform.system() == 'Linux':
-    list_file_path = "/home/anlly/workspace/rtx_train_data/truck/truck_20200509_new/list.txt"
-    json_file_path = "/home/anlly/machine_learning/tag_test/json"
+    # list_file_path = "/home/anlly/workspace/rtx_train_data/truck/truck_20200509_new/list.txt"
+    # json_file_path = "/home/anlly/machine_learning/tag_test/json"
+    list_file_path =  "/home/anlly/machine_learning/docker/main-nginx/html/ftp_video/user/nas_project/frank/truck_20200808/train.txt"
+    json_file_path = "/home/anlly/machine_learning/docker/flask/store"
 
-
+record_json_name = "/home/anlly/machine_learning/tag_test/json/json_name.txt"
 
 def read_list_file(list_name, save_position):
     if not os.path.exists(list_name):
@@ -123,16 +125,21 @@ def read_list_file(list_name, save_position):
         
     }
     img_index = 0
-
+    file_num = 0
     with open(list_name, "r", encoding="utf8") as fp_list_txt:
 
-        for line in fp_list_txt.readlines():
+        lines = fp_list_txt.readlines()
+        for line in lines:
+            # if file_num == 5: 
+                # break
+
             # get base infomation for read file
+            line = line.strip()
             temp = line.strip().split("/")
             filename_txt = temp[-1][0:-3] + "txt"  # xxx.txt
             filename_img = temp[-1]                 # xxx.jpg
             file_data_path = temp[-2]  # true_data
-            line = line.strip()
+           
             if platform.system() == 'Windows':
                 line = os.path.join(file_data_path, filename_img)  # 获取到本地相对路径
 
@@ -159,13 +166,18 @@ def read_list_file(list_name, save_position):
             }
 
             # add file
+            # fname = ''.join(temp[7:])
+            fname = '.'
+            for url_file in temp[7:]:
+                fname = os.path.join(fname,url_file)
+            print("fname=", fname)
             pid_json_data["file"][str(img_index)] = {
                 "fid": str(img_index),
                 # "fname": os.path.join(url_path, item.replace('#', '%23')),# ?
-                "fname": line.replace('#', '%23'),
+                "fname": fname.replace('#', '%23'),
                 "type": 2,
                 "loc": 2,
-                "src": line.replace('#', '%23')
+                "src": fname.replace('#', '%23')
             }
 
             # uuid3
@@ -196,7 +208,7 @@ def read_list_file(list_name, save_position):
                             uuid.NAMESPACE_DNS, item))[2:8]
 
                         item_arr = item.split(' ')
-                        print("item_arr: ", item_arr)
+                        # print("item_arr: ", item_arr)
 
                         x = float(item_arr[1]) * now_img_width
                         y = float(item_arr[2]) * now_img_height
@@ -204,7 +216,7 @@ def read_list_file(list_name, save_position):
                         w = float(item_arr[3]) * now_img_width
                         h = float(item_arr[4]) * now_img_height
 
-                        print('x: {}, y: {}, w: {}, h: {}'.format(x, y, w, h))
+                        # print('x: {}, y: {}, w: {}, h: {}'.format(x, y, w, h))
 
                         xmax = (w + (x + 1) * 2) / 2
                         xmin = xmax - w
@@ -230,12 +242,46 @@ def read_list_file(list_name, save_position):
                                 "3": item_arr[0]
                             }
                         }
-    
-    print(pid_json_data)
-    json_filename = pid_name + ".json"
+
+            # in loop
+            # create a new pid.json per 2000
+            # if img_index == 2  and img_index != len(lines):
+            if img_index == 2000:
+                file_num += 1
+                pid_json_data['project']['pid'] = pid_name + "-" + str(file_num)
+                json_filename = pid_name + "_" + str(file_num) + ".json"
+                with open(record_json_name, "a+",encoding="utf8") as fp_json_name:
+                    fp_json_name.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "\t" + json_filename + "\n")
+                json_full_path = os.path.join(save_position, json_filename)
+                with open(json_full_path,"w+",encoding="utf8") as fp_json:
+                    fp_json.write(json.dumps(pid_json_data,indent=2))
+
+                img_index = 0
+                pid_json_data['view'] = {}
+                pid_json_data['file'] = {}
+                pid_json_data['metadata'] = {}
+                pid_json_data['project']['vid_list'] = []
+
+            
+
+    print(file_num)
+    if file_num > 0:
+        file_num += 1
+        pid_json_data['project']['pid'] = pid_name + "-" + str(file_num)
+        json_filename = pid_name + "_" + str(file_num) + ".json"
+    else:
+        json_filename = pid_name + ".json"
+
+
+    # print("pid_json_data",pid_json_data)
     print("json_filename=", json_filename)
+
+    print("record_json_name=",record_json_name)
+    with open(record_json_name, "a+",encoding="utf8") as fp_json_name:
+        fp_json_name.write(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "\t" + json_filename + "\n")
+    
     json_full_path = os.path.join(save_position, json_filename)
-    print("json_file_path=", json_full_path)
+    print("json_full_path=", json_full_path)
     with open(json_full_path,"w+",encoding="utf8") as fp_json:
         fp_json.write(json.dumps(pid_json_data,indent=2))
 
