@@ -47,7 +47,9 @@ if platform.system() == 'Windows':
 elif platform.system() == 'Linux':
     # list_file_path = "/home/anlly/workspace/rtx_train_data/truck/truck_20200509_new/list.txt"
     # json_file_path = "/home/anlly/machine_learning/tag_test/json"
-    list_file_path =  "/home/anlly/machine_learning/docker/main-nginx/html/ftp_video/user/nas_project/frank/truck_20200808/train.txt"
+    # list_file_path = "/home/anlly/machine_learning/docker/main-nginx/html/ftp_video/user/nas_project/frank/truck_20200808/train.txt" # 大车
+    list_file_path = "/home/anlly/machine_learning/docker/main-nginx/html/ftp_video/user/nas_project/frank/20200810_darkness/train.txt" # 黑烟
+    
     json_file_path = "/home/anlly/machine_learning/docker/flask/store"
 
 record_json_name = "/home/anlly/machine_learning/tag_test/json/json_name.txt"
@@ -99,9 +101,10 @@ def read_list_file(list_name, save_position):
                 "type": 3,
                 "desc": "video Object",
                 "options": {
-                    "0": "board",
-                    "1": "truck",
-                    "2": "person"
+                    # "0": "board",
+                    # "1": "truck",
+                    # "2": "person"
+                    "0": "darkness"
                 },
                 "default_option_id": "0"
             },
@@ -111,9 +114,10 @@ def read_list_file(list_name, save_position):
                 "type": 3,
                 "desc": "image Object",
                 "options": {
-                    "0": "board",
-                    "1": "truck",
-                    "2": "person"
+                    # "0": "board",
+                    # "1": "truck",
+                    # "2": "person"
+                    "0": "darkness"
                 },
                 "default_option_id": "0"
             }
@@ -264,7 +268,6 @@ def read_list_file(list_name, save_position):
 
             
 
-    print(file_num)
     if file_num > 0:
         file_num += 1
         pid_json_data['project']['pid'] = pid_name + "-" + str(file_num)
@@ -272,6 +275,7 @@ def read_list_file(list_name, save_position):
     else:
         json_filename = pid_name + ".json"
 
+    print("file_num=",file_num)
 
     # print("pid_json_data",pid_json_data)
     print("json_filename=", json_filename)

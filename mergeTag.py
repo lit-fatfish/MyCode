@@ -8,15 +8,14 @@ import os
 import platform
 from datetime import date
 
-if platform.system() == 'Windows':
-    list_file_path = "new_list.txt"
-    new_file_path = "."
-elif platform.system() == 'Linux':
-    list_file_path = "/home/anlly/workspace/rtx_train_data/truck/truck_20200509_new/train.txt"
-    # new_file_path = "/home/anlly/machine_learning/tag_test"
-    new_file_path = "/home/anlly/machine_learning/docker/main-nginx/html/ftp_video/user/nas_project/frank"
 
-data_type = "truck_"
+# list_file_path = "/home/anlly/workspace/rtx_train_data/truck/truck_20200509_new/train.txt"  # 大车
+# list_file_path = "/home/anlly/workspace/rtx_train_data/darkness/darkness_smoke_20200723/train.txt" # 黑烟
+list_file_path = "/home/anlly/workspace/rtx_train_data/hat/hat_20200522/train.txt" # 人与安全帽
+# new_file_path = "/home/anlly/machine_learning/tag_test"
+new_file_path = "/home/anlly/machine_learning/docker/main-nginx/html/ftp_video/user/nas_project/frank"
+
+data_type = "_person"
 
 
 # 存放的位置
@@ -27,7 +26,7 @@ def read_list_file(filename, src, dst, new_path):
         print("files not found")
         return False
     # create a new folder
-    new_folder_name = data_type + ''.join(str(date.today()).strip().split('-'))
+    new_folder_name = ''.join(str(date.today()).strip().split('-')) + data_type
     new_train_path = os.path.join(new_path, new_folder_name)
     new_file_path = os.path.join(new_path, new_folder_name,"true_data")  #  /xx/xxx/xxx/true_data
     print("new_file_path=",new_file_path)
@@ -42,17 +41,10 @@ def read_list_file(filename, src, dst, new_path):
         for line in fp.readlines():
             # if index == 10:
             #     break
-            # in Linux path = /home/anlly/workspace/rtx_train_data/truck/truck_20200509_new/true_data/22101c9e-abf3-4893-b200-c3b0c9a8466b.mp4#0.448.jpg
-            # in Window path = true_data/22101c9e-abf3-4893-b200-c3b0c9a8466b.mp4#0.448.jpg
             line = line.strip() 
             temp = line.strip().split("/")
             filename_txt = temp[-1][0:-3] + "txt"  # xxx.txt
             filename_img = temp[-1]                 # xxx.jpg
-            # file_data_path = temp[-2]  # true_data
-            # file_path = temp[-2]  # true_data
-            
-            # if platform.system() == 'Windows':
-            #     line = os.path.join(file_data_path, filename_img)  # 获取到本地相对路径
 
             if not os.path.exists(line):
                 continue
@@ -60,10 +52,7 @@ def read_list_file(filename, src, dst, new_path):
             line_img = line
             line_txt = line[0:-3] + "txt"
             print("line_txt=", line_txt)
-            # create true_data folder
-            # new_data_path = os.path.join(new_file_path, file_data_path)
-            # if not os.path.exists(new_data_path):
-            #     os.mkdir(new_data_path)
+            
 
             with open(line_txt, "r+", encoding="utf8") as fp_txt:
                 fp_txt.seek(0)
@@ -72,12 +61,24 @@ def read_list_file(filename, src, dst, new_path):
                     continue
                 # print(line_txts)
                 print("line_txts_length",len(line_txts))
+                # if need update tags
+                # for i in range(len(line_txts)):
+                #     if line_txts[i][0:1] == src:
+                #         line_txts[i] = dst + line_txts[i][1:]
+                
+                # pick hat from person and hat    
+                temp_lines = []
                 for i in range(len(line_txts)):
-                    if line_txts[i][0:1] == src:
-                        line_txts[i] = dst + line_txts[i][1:]
+                    if line_txts[i][0:1] == '1':
+                        line_txts[i] = '2' + line_txts[i][1:]
+                        temp_lines.append(line_txts[i])
+                if not temp_lines:
+                    continue
+                
+                line_txts = temp_lines 
+                print(line_txts)
                 # write txt data to another folder
                 new_txt_path = os.path.join(new_file_path, filename_txt)
-
                 # print("new_txt_path=",new_txt_path)
 
                 with open(new_txt_path, "w+", encoding="utf8") as fp_new:
@@ -106,24 +107,9 @@ def read_list_file(filename, src, dst, new_path):
             fp_train.write(train)
 
 
-read_list_file(list_file_path, "0", "1", new_file_path)
+# read_list_file(list_file_path, "0", "1", new_file_path)
+read_list_file(list_file_path, "0", "0", new_file_path)
 
-# import re
-#
-#
-# line="this hdr-biz model server"
-# pattern="hdr-biz11"
-# m = re.search(pattern, line)
-# print(m)
 
-# 写一个简单的函数，读取文件名，并且获取一个匹配图片的列表
-# list = os.listdir("true_data")
-#
-# for filename in list:
-#     with open("list copy.txt","r",encoding="utf8") as fp:
-#         for line in fp.readlines():
-#             # 假如整行匹配到filename，则写入到文件中
-#             result = re.search(filename, line)
-#             if result:
-#                 with open("new_list.txt","a+",encoding="utf8") as fp:
-#                     fp.writelines(line)
+
+
