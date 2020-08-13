@@ -426,6 +426,8 @@ def config_file():
                 dic_old['expire'] = dic_post['expire']
                 dic_old['timing'] = dic_post['timing']
                 dic_old['flag'] = dic_post['flag']
+                dic_old['isUpload'] = dic_post['isUpload']
+
                 for i in range(len(dic_old['rtsp_list'])):
                     dic_old['rtsp_list'][i]['rtsp_main_url'] = dic_post['rtsp_list'][i]['rtsp_main_url']
                     dic_old['rtsp_list'][i]['url'] = dic_post['rtsp_list'][i]['url']

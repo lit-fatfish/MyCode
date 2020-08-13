@@ -130,11 +130,13 @@ def post_fail_file(timing,r):
     # 假如不存在，则返回
     # 读取到的是一个文件名，根据文件名去读取数据
     # 根据读取到的数据进行post
-    list_filename = r.zrange("fail_queue", 0, -1) # 获取全部的队列，根据这个队列进行循环上传
-    if list_filename:
-        for filename in list_filename:
-            post_to_server(r,"fail_queue") #从失败队列中取出数据post到服务器
-            time.sleep(1)
+    json_data = read_jsonfile(config_name)
+    if json_data['isUpload']:
+        list_filename = r.zrange("fail_queue", 0, -1) # 获取全部的队列，根据这个队列进行循环上传
+        if list_filename:
+            for filename in list_filename:
+                post_to_server(r,"fail_queue") #从失败队列中取出数据post到服务器
+                time.sleep(1)
     t = Timer(timing, post_fail_file,(timing,r,))
     t.start()
 
@@ -492,7 +494,7 @@ def init_redis():
 
 def timing_post(timing, r, queue_name):
     json_data = read_jsonfile(config_name)
-    if json_data['flag']:
+    if json_data['isUpload']:
         post_to_server(r, queue_name)
         # time.sleep(30)
         # print("running")
