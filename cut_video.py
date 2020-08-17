@@ -490,6 +490,13 @@ def init_redis():
     redis_obj = Redis(host=host, port=6379, password=pwd, db=db,decode_responses=True)
     return redis_obj
 
+def init_redis1():
+    pwd = "anlly12345"
+    host = 'redis'
+    db = 1
+    redis_obj = Redis(host=host, port=6379, password=pwd, db=db,decode_responses=True)
+    return redis_obj
+
 # 测试上传
 
 def timing_post(timing, r, queue_name):
@@ -502,24 +509,154 @@ def timing_post(timing, r, queue_name):
     t = Timer(timing, timing_post, (timing,r, queue_name,))
     t.start()
 
-# def main1():
-#     # r = init_redis()
-#     r = "redis"
-#     timing_post(5,r,"wait_post")
-#     while True:
-#         print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-#         time.sleep(1)
+# 录制视频函数
+def record_video(r,rtsp_url_abbr):
+    # 读取配置文件，查看是否在配置文件中
+    json_data = read_jsonfile(config_name)
+    arr_num = -1
+    i = 0
+    for item in json_data["rtsp_list"]:
+        # print(item)
+        
+        if rtsp_url_abbr in item["rtsp_url"]:
+            arr_num = i
+            break
+        i += 1
+    if arr_num == -1:
+        print("the rtsp_url are not in config file")
+        return False
+    # 获得rtsp_list 参数，配置参数
+    rtsp_list = json_data["rtsp_list"][arr_num]
+    print("rtsp_list", rtsp_list)
+    rtsp_url = rtsp_list["rtsp_main_url"].format(rtsp_list["docker_ip"])
+    interval = str(json_data['cut_time'])  # 录制多少时间
+
+    time_start = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    
+    videoid = "record_" + ''.join(str(uuid.uuid4()).split('-'))  # videoid 采用uuid 并去掉括号
+    if not os.path.exists('video'):
+        os.mkdir("video")
+    # 根据日期创建文件夹
+    foldername = os.path.join('.','video', str(date.today()))
+    if not os.path.exists(foldername):
+        os.mkdir(foldername)
+    filename = os.path.join(foldername, videoid + '.mp4')
+    # 切片
+    cmd = "ffmpeg -i " + rtsp_url + " -t " + interval + " -c copy -f mp4 -y " + filename
+    val = os.system(cmd)
+    print(val)
+
+    # 存入等待队列，等待自动上传
+    if os.path.exists(filename):
+        if os.path.getsize(filename):
+            time_now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            dic = {
+                "filename": filename,
+                "fail_num": 0,
+                "url": rtsp_list["url"],
+                "data_id": videoid,
+                "cameracode": rtsp_list["cameracode"],
+                "resultAddress": rtsp_list["resultAddress"],
+                "time_start": str(time_now)
+            }
+            print("dic", dic)
+            set_values(r, videoid, dic)
+            write_queue(r, "wait_queue", videoid)
+
+    # 直接上传的版本，无错误处理
+    # if os.path.exists(filename):
+    #     # 假如文件存放，就上传
+    #     formdata = {
+    #         "videoid": videoid,
+    #         "cameracode": rtsp_list["cameracode"],
+    #         "resultAddress": rtsp_list["resultAddress"],
+    #         "time_start": str(time_start)  
+    #     }
+    #     if os.path.exists(filename):
+    #         files = {'fileData': open(filename, 'rb')}
+    #     else:
+    #         print("file can not found")
+    #         return False
+    # try:
+    #     response = requests.post(url, data=formdata, files=files, timeout=20)
+    # except:
+    #     print("上传失败")
+    #     pass
+
+
+# 录制视频线程
+def thread_record(r,rtsp_url_abbr):
+    t = threading.Thread(target=record_video, args=(r,rtsp_url_abbr,))
+    t.start()
+
+
+# 定时录制函数
+
+def timing_record(timing, r, r1):
+    miku1_dic = get_values(r1,"rtsp_list:miku1")
+    if miku1_dic:
+        # 判断是否需要切片
+        if miku1_dic["status"] == 1:
+            pass
+            # 设置状态为 2
+            miku1_dic["status"] = 2
+            r1.set("rtsp_list:miku1", str(miku1_dic),ex=60)
+
+            # 开始切片,30s 写一个切片函数
+            thread_record(r,"miku1")
+            
+        elif miku1_dic["status"] == 0:
+            pass
+            # 结束录制，暂时不用
+    
+    miku3_dic = get_values(r1,"rtsp_list:miku3")
+    if miku3_dic:
+        # 判断是否需要切片
+        if miku3_dic["status"] == 1:
+            pass
+            # 设置状态为 2
+            miku3_dic["status"] = 2
+            r1.set("rtsp_list:miku3", str(miku3_dic),ex=60)
+
+            # 开始切片,30s 写一个切片函数
+            thread_record(r,"miku3")
+            
+        elif miku3_dic["status"] == 0:
+            pass
+            # 结束录制，暂时不用
+
+    miku5_dic = get_values(r1,"rtsp_list:miku5")
+    if miku5_dic:
+        # 判断是否需要切片
+        if miku5_dic["status"] == 1:
+            pass
+            # 设置状态为 2
+            miku5_dic["status"] = 2
+            r1.set("rtsp_list:miku5", str(miku5_dic),ex=60)
+
+            # 开始切片,30s 写一个切片函数
+            thread_record(r,"miku5")
+            
+        elif miku5_dic["status"] == 0:
+            pass
+            # 结束录制，暂时不用
+    t = Timer(timing, timing_record, (timing, r, r1,))
+    t.start()
 
 def main():
     r = init_redis()
+    r1 = init_redis1()
     clear_file(r,'log')
     clear_file(r,'video')
     post_fail_file(7200, r) # 每两小时运行一次
     timing_post(5,r,"wait_queue") # 定时5秒运行一次，假如存在阻塞时，会自动阻塞并延长时间
+    timing_record(1,r,r1)
+
     while True:
         json_data = read_jsonfile(config_name)
         # print(json_data)
         if json_data['flag']:
+        # if 0 :
 
             times = int(json_data['times'])
             numbers = len(json_data['rtsp_list'])
@@ -538,7 +675,7 @@ def main():
             print('cut_time', cut_time)
             print('times', times)
             print('numbers', numbers)
-            post_to_server(r, "wait_queue")
+            # post_to_server(r, "wait_queue")
 
             for i in range(int(json_data['times']) * 60):
                 # time_now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
