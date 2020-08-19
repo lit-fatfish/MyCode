@@ -1,7 +1,7 @@
 import os
 import redis
 import requests
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect,url_for
 import json
 import time
 import platform
@@ -9,7 +9,8 @@ from flask_cors import CORS
 
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="video", static_url_path="/static") # 映射静态目录
+# app = Flask(__name__)
 CORS(app, supports_credentials=True)  # 跨域
 
 # @app.route('/')
@@ -457,6 +458,19 @@ def config_file():
     # print(os.getcwd()) # 打印当前路径 D:\MyProgram\PyCharm 2020.1.3\jbr\bin
     return jsonify(dic)
 
+
+# @app.route('/show_video', methods=['GET', 'POST'])
+# def show_video():
+#     dic_json = request.get_json()
+#     print(dic_json)
+#     if dic_json:
+#         temp = dic_json["filename"].strip().split("/")
+#         filename = os.path.join(temp[-2],temp[-1])
+#         # return jsonify(filename)
+#         # return app.send_static_file(filename)
+#         # return redirect("ffmpeg" + url_for('static', filename=filename))  #打开视频
+#         return redirect("http://gd110.anlly.net:8888/ffmpeg/static/" + filename)
+#     return jsonify(False)
 
 
 
