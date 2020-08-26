@@ -1,0 +1,53 @@
+{
+  "restart": 0,
+  "isUpload": false,
+  "times": "2",
+  "cut_time": 30,
+  "expire": 7,
+  "rtsp_list": [
+    {
+      "url": "http://anlly.godping.com:10080/gd/Handle.php",
+      "rtsp_url": "rtsp://{}:554/miku1",
+      "port": 8002,
+      "resultAddress": "https://power.anlly.net/customer/api/v1/callback",
+      "rtsp_main_url": "rtsp://{}:554/miku1/720",
+      "cameracode": "1",
+      "docker_ip": "172.17.0.1",
+      "id": "d301dba0-d173-11ea-90f5-21092d758493",
+      "camera_ip": "192.168.24.12",
+      "status": 1,
+      "camera_user": "admin",
+      "camera_pwd": "skyland123"
+    },
+    {
+      "url": "http://anlly.godping.com:10080/gd/Handle.php",
+      "rtsp_url": "rtsp://{}:554/miku3",
+      "port": 8004,
+      "resultAddress": "https://power.anlly.net/customer/api/v1/callback",
+      "rtsp_main_url": "rtsp://{}:554/miku3/720",
+      "cameracode": "2",
+      "docker_ip": "172.17.0.1",
+      "id": "56ee13d0-d3c6-11ea-af66-c78c59e69347",
+      "camera_ip": "192.168.24.14",
+      "status": 1,
+      "camera_user": "admin",
+      "camera_pwd": "skyland123"
+    },
+    {
+      "url": "http://anlly.godping.com:10080/gd/Handle.php",
+      "rtsp_url": "rtsp://{}:554/miku5",
+      "port": 8006,
+      "resultAddress": "https://power.anlly.net/customer/api/v1/callback",
+      "rtsp_main_url": "rtsp://{}:554/miku5/720",
+      "cameracode": "3",
+      "docker_ip": "172.17.0.1",
+      "id": "f6ce3ba0-d3df-11ea-a0c4-01ddc76e91c7",
+      "camera_ip": "192.168.24.21",
+      "status": 1,
+      "camera_user": "admin",
+      "camera_pwd": "skyland123"
+    }
+  ],
+  "timing": 1,
+  "flag": false
+}

@@ -1,28 +1,32 @@
 import psutil
+import os
 
-# 测试test_model.py 里面的程序
-def convertBack(x, y, w, h):
-  xmin = int(round(x - (w / 2)))
-  xmax = int(round(x + (w / 2)))
-  ymin = int(round(y - (h / 2)))
-  ymax = int(round(y + (h / 2)))
-  return xmin, ymin, xmax, ymax
+if not os.path.exists("hello.py"):
+  print("不存在")
 
-print(convertBack(1,2,3,4))
+# # 测试test_model.py 里面的程序
+# def convertBack(x, y, w, h):
+#   xmin = int(round(x - (w / 2)))
+#   xmax = int(round(x + (w / 2)))
+#   ymin = int(round(y - (h / 2)))
+#   ymax = int(round(y + (h / 2)))
+#   return xmin, ymin, xmax, ymax
 
-import argparse
+# print(convertBack(1,2,3,4))
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--sparse', action='store_true', default=False, help='GAT with sparse version or not.')
-parser.add_argument('--seed', type=int, default=72, help='Random seed.')
-parser.add_argument('--epochs', type=int, default=10000, help='Number of epochs to train.')
+# import argparse
 
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument('--sparse', action='store_true', default=False, help='GAT with sparse version or not.')
+# parser.add_argument('--seed', type=int, default=72, help='Random seed.')
+# parser.add_argument('--epochs', type=int, default=10000, help='Number of epochs to train.')
 
-print(args.sparse)
-print(args.seed)
-exit(0)
-print(args.epochs)
+# args = parser.parse_args()
+
+# print(args.sparse)
+# print(args.seed)
+# exit(0)
+# print(args.epochs)
 
 # core_num = psutil.cpu_count()
 # print("core_num=", core_num)
