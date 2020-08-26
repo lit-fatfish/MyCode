@@ -174,7 +174,7 @@ def cut_video(r, list_num, rtsp_list, cut_time):
     filename = os.path.join(foldername, videoid + '.mp4')
     rtsp_url = rtsp_list[list_num]["rtsp_main_url"].format(rtsp_list[list_num]["docker_ip"])  # 视频源地址
     print(rtsp_url)
-    cmd = "ffmpeg -i " + rtsp_url + " -t " + interval + " -c copy -f mp4 -y " + filename
+    cmd = "ffmpeg -rtsp_transport tcp -i " + rtsp_url + " -t " + interval + " -c copy -f mp4 -y " + filename
     print(cmd)
     val = os.system(cmd)
     print(val)
@@ -312,10 +312,12 @@ def post_to_server(r,queue_name):
         files = {'fileData': open(filename, 'rb')}
     else:
         print("file can not found")
+        remove_queue(r,queue_name,video_id)
+
         return False
     print("hello2")
     try:
-        response = requests.post(url, data=formdata, files=files, timeout=20)
+        response = requests.post(url, data=formdata, files=files, timeout=60)
         
         # exit(0)
         
@@ -529,11 +531,13 @@ def record_video(r,rtsp_url_abbr):
     rtsp_list = json_data["rtsp_list"][arr_num]
     print("rtsp_list", rtsp_list)
     rtsp_url = rtsp_list["rtsp_main_url"].format(rtsp_list["docker_ip"])
-    interval = str(json_data['cut_time'])  # 录制多少时间
+    interval = "60" #str(json_data['cut_time'])  # 录制多少时间
 
     time_start = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     
-    videoid = "record_" + ''.join(str(uuid.uuid4()).split('-'))  # videoid 采用uuid 并去掉括号
+    # videoid = "record_" + ''.join(str(uuid.uuid4()).split('-'))  # videoid 采用uuid 并去掉括号
+    videoid = "record_" + rtsp_url_abbr + "_" + str(time.strftime("%Y%m%d%H%M%S", time.localtime())) # videoid 采用uuid 并去掉括号
+
     if not os.path.exists('video'):
         os.mkdir("video")
     # 根据日期创建文件夹
@@ -542,7 +546,7 @@ def record_video(r,rtsp_url_abbr):
         os.mkdir(foldername)
     filename = os.path.join(foldername, videoid + '.mp4')
     # 切片
-    cmd = "ffmpeg -i " + rtsp_url + " -t " + interval + " -c copy -f mp4 -y " + filename
+    cmd = "ffmpeg -rtsp_transport tcp -i " + rtsp_url + " -t " + interval + " -c copy -f mp4 -y " + filename
     val = os.system(cmd)
     print(val)
 
@@ -598,13 +602,18 @@ def timing_record(timing, r, r1):
         # 判断是否需要切片
         if miku1_dic["status"] == 1:
             pass
-            # 设置状态为 2
-            miku1_dic["status"] = 2
-            r1.set("rtsp_list:miku1", str(miku1_dic),ex=60)
-
-            # 开始切片,30s 写一个切片函数
-            thread_record(r,"miku1")
             
+            
+            # 判断是否正在切片这个程序，假如在切片则不值执行
+            process_num = os.popen("ps -ef | grep -v grep | grep miku1 | grep record  | wc -l").read()  # 切片的时候是3个，没切的时候是一个
+            if int(process_num) < 1:
+                # 设置状态为 2
+                miku1_dic["status"] = 2
+                r1.set("rtsp_list:miku1", str(miku1_dic),ex=60)
+
+                # 开始切片,30s 写一个切片函数
+                thread_record(r,"miku1")
+            print(process_num)
         elif miku1_dic["status"] == 0:
             pass
             # 结束录制，暂时不用
@@ -614,12 +623,16 @@ def timing_record(timing, r, r1):
         # 判断是否需要切片
         if miku3_dic["status"] == 1:
             pass
-            # 设置状态为 2
-            miku3_dic["status"] = 2
-            r1.set("rtsp_list:miku3", str(miku3_dic),ex=60)
-
-            # 开始切片,30s 写一个切片函数
-            thread_record(r,"miku3")
+            # 判断是否正在切片这个程序，假如在切片则不值执行
+            process_num = os.popen("ps -ef | grep -v grep | grep miku3 | grep record  | wc -l").read()  # 切片的时候是3个，没切的时候是一个
+            if int(process_num) < 1:
+                # 设置状态为 2
+                miku3_dic["status"] = 2
+                r1.set("rtsp_list:miku3", str(miku3_dic),ex=60)
+                
+                # 开始切片,30s 写一个切片函数
+                thread_record(r,"miku3")
+            print(process_num)
             
         elif miku3_dic["status"] == 0:
             pass
@@ -630,12 +643,16 @@ def timing_record(timing, r, r1):
         # 判断是否需要切片
         if miku5_dic["status"] == 1:
             pass
-            # 设置状态为 2
-            miku5_dic["status"] = 2
-            r1.set("rtsp_list:miku5", str(miku5_dic),ex=60)
-
-            # 开始切片,30s 写一个切片函数
-            thread_record(r,"miku5")
+            # 判断是否正在切片这个程序，假如在切片则不值执行
+            process_num = os.popen("ps -ef | grep -v grep | grep miku5 | grep record  | wc -l").read()  # 切片的时候是3个，没切的时候是一个
+            if int(process_num) < 1:
+                # 设置状态为 2
+                miku5_dic["status"] = 2
+                r1.set("rtsp_list:miku5", str(miku5_dic),ex=60)
+                
+                # 开始切片,30s 写一个切片函数
+                thread_record(r,"miku5")
+            print(process_num)
             
         elif miku5_dic["status"] == 0:
             pass
@@ -648,10 +665,10 @@ def main():
     r1 = init_redis1()
     clear_file(r,'log')
     clear_file(r,'video')
-    post_fail_file(7200, r) # 每两小时运行一次
+    
     timing_post(5,r,"wait_queue") # 定时5秒运行一次，假如存在阻塞时，会自动阻塞并延长时间
     timing_record(1,r,r1)
-
+    post_fail_file(7200, r) # 每两小时运行一次,会先上传所有的失败队列，会阻塞，到时候修改
     while True:
         json_data = read_jsonfile(config_name)
         # print(json_data)
@@ -675,7 +692,7 @@ def main():
             print('cut_time', cut_time)
             print('times', times)
             print('numbers', numbers)
-            # post_to_server(r, "wait_queue")
+            # post_topost_to_server(r, "wait_queue")
 
             for i in range(int(json_data['times']) * 60):
                 # time_now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
