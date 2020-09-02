@@ -291,7 +291,8 @@ def upload():
             "videoid": dic["data_id"],
             "cameracode": dic["cameracode"],
             "resultAddress": dic["resultAddress"],
-            "time_start": dic["time_start"]  # 需要校准
+            "time_start": dic["time_start"],  # 需要校准
+            "type":1
         }
         files = {'fileData': open(filename, 'rb')}
         try:
@@ -348,19 +349,23 @@ def uoload_all():
                     #     response = requests.post(url, data=formdata, files=files)
                     # except:
                     #     return jsonify({"error", "response error"})
-                    response = requests.post(url, data=formdata, files=files)
-                    if response.status_code == 200:
-                        json_result = response.json()
-                        # 这里的data_id 采用从redis中读取文件名，因为有可能返回的json文件无法获得文件名
-                        if json_result['error_code'] == 0:
-                            # 加入成功队列
-                            remove_queue(r, "fail_queue", video_id["data_id"])
-                            write_queue(r, "finish_queue", video_id["data_id"])
-                            datas['success'] += 1
-                        else:
-                            datas['fail'] += 1
+                    try:
+                        response = requests.post(url, data=formdata, files=files)
+                        if response.status_code == 200:
+                            json_result = response.json()
+                            # 这里的data_id 采用从redis中读取文件名，因为有可能返回的json文件无法获得文件名
+                            if json_result['error_code'] == 0:
+                                # 加入成功队列
+                                remove_queue(r, "fail_queue", video_id["data_id"])
+                                write_queue(r, "finish_queue", video_id["data_id"])
+                                datas['success'] += 1
+                            else:
+                                datas['fail'] += 1
 
-                    else:
+                        else:
+                            # 服务器返回的状态码不对，比如404之类的
+                            datas['fail'] += 1
+                    except:
                         # 服务器返回的状态码不对，比如404之类的
                         datas['fail'] += 1
                 else:

@@ -306,7 +306,8 @@ def post_to_server(r,queue_name):
         "videoid": dic["data_id"],
         "cameracode": dic["cameracode"],
         "resultAddress": dic["resultAddress"],
-        "time_start": dic["time_start"]  # 需要校准
+        "time_start": dic["time_start"],  # 需要校准
+        "type":1
     }
     if os.path.exists(filename):
         files = {'fileData': open(filename, 'rb')}
@@ -331,7 +332,9 @@ def post_to_server(r,queue_name):
 
         if response.status_code == 200:
             print("world")
+            print(response.text)
             json_result = response.json()
+            print("json_result", json_result)
             remove_queue(r,queue_name,video_id)
             # 返回结果判断
             # 这里的data_id 采用从redis中读取文件名，因为有可能返回的json文件无法获得文件名
