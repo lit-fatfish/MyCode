@@ -141,9 +141,9 @@ def mian():
                 print("start", json_result)
                 if json_result["status"] == 200:
                     # time.sleep(10)
-                    for i in range(30):
+                    for i in range(10):
                         time.sleep(1)
-                        print(30-i)
+                        print(10-i)
                     formdata["type"] = "stop"
                     response = requests.post(url, data=json.dumps(formdata))
                     json_result = response.json()

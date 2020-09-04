@@ -1,8 +1,18 @@
 import psutil
 import os
 
-if not os.path.exists("hello.py"):
-  print("不存在")
+##写一个统计文件长度的程序
+
+def get_file_lenght(filepath):
+  count = 0
+  for index, item in enumerate(open(filepath, "r")):
+    count += 1
+  return count
+
+print(get_file_lenght("config.json"))
+
+# if not os.path.exists("hello.py"):
+#   print("不存在")
 
 # # 测试test_model.py 里面的程序
 # def convertBack(x, y, w, h):
