@@ -73,7 +73,7 @@ def remove_queue(r,queue_name, callback_obj):
 
 def init_redis():
     pwd = "anlly12345"
-    host = '192.168.31.19'
+    host = '172.17.0.1'
     db = 8
     # host = 'localhost'
     # pwd = ''
@@ -99,7 +99,7 @@ def mian():
     # 等待接受信号
 
     # 将数据写入Redis中的回调队列
-    while(1):
+    while True:
         time.sleep(1)
         zset = read_queue(r, "waitReasoningList")
         print(zset)
@@ -133,7 +133,7 @@ def mian():
                 "source_name": source_name,
                 "dist_name": dist_name
             }
-            url = "http://192.168.31.19:8001/record"
+            url = "http://0.0.0.0:8001/record"
             try:
                 response = requests.post(url, data=json.dumps(formdata))
                 print(response.text)
@@ -141,15 +141,20 @@ def mian():
                 print("start", json_result)
                 if json_result["status"] == 200:
                     # time.sleep(10)
-                    for i in range(10):
+                    time_length = 10
+                    for i in range(time_length):
                         time.sleep(1)
-                        print(10-i)
+                        print(time_length-i)
                     formdata["type"] = "stop"
                     response = requests.post(url, data=json.dumps(formdata))
                     json_result = response.json()
                     print("stop", json_result)
             except:
                 print("error")
+
+                # 移除待推理中
+                remove_queue(r, "reasoningList",zset)
+                
                 continue
 
             time.sleep(1)
