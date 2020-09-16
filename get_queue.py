@@ -18,7 +18,7 @@ class GetQueue():
         pass
         self.result = {}
         self.open_flag = 0  # 开启自动跟踪标志位
-        self.task_id = "0"
+        # task = "0"
         self.line = {
             "0":{
                 "1":0,
@@ -77,7 +77,7 @@ class GetQueue():
         # 处理找板得到的结果
         
         isboard = result["is_board"]
-        self.task_id = result["task_id"]
+        task = result["task_id"]
         dot_id = result["camera"]
 
         print("line", self.line)
@@ -95,24 +95,24 @@ class GetQueue():
             print("is jiliang ")
         else:
             # 进来就是2，假如找到了就是1
-            self.line[self.task_id][dot_id] = 2
+            self.line[task][dot_id] = 2
             if int(isboard) == 1:
                 
-                for item in self.line[self.task_id]:
+                for item in self.line[task]:
                     # print("item",item)
                     # 判断是否存在1
-                    if self.line[self.task_id][item] == 1:
+                    if self.line[task][item] == 1:
                         print("other program in running")
                         return False
                         
-                self.line[self.task_id][dot_id] = 1            
+                self.line[task][dot_id] = 1            
             else:
                 print("not found board")
                 count = 0
-                for item in self.line[self.task_id]:
+                for item in self.line[task]:
                     # print("item",item)
                     # 判断三个是否都是2，不是的话就不执行，是的话就执行当前这个
-                    if self.line[self.task_id][item] == 2:
+                    if self.line[task][item] == 2:
                         count += 1
                 print("count=",count)
                 if count == 2:
@@ -139,7 +139,7 @@ class GetQueue():
 
                 elif int(values["type"]) == 2:
                     print(dot_id, "run jiliang program")
-                    self.measurement_thread(dot_id, dn_rtsp,camera_rtsp, dot_id, self.task_id)
+                    self.measurement_thread(dot_id, dn_rtsp,camera_rtsp, dot_id, task)
                 break
 
         
