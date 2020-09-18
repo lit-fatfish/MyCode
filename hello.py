@@ -7,7 +7,11 @@ import time
 import platform
 from flask_cors import CORS
 
+
 from werkzeug.utils import secure_filename
+import cv2
+import numpy as np
+from PIL import Image, ImageFont, ImageDraw
 
 app = Flask(__name__, static_folder="video", static_url_path="/static") # 映射静态目录
 # app = Flask(__name__)
@@ -479,10 +483,11 @@ def config_file():
 
 
 
+
 if __name__ == '__main__':
     r = init_redis()
     if platform.system() == 'Windows':
-        app.run(debug=True, host='127.0.0.1',port=5000)
+        app.run(debug=True, host='0.0.0.0',port=5000)
 
     elif platform.system() == 'Linux':
         app.run(debug = True,host = '0.0.0.0',port=8003)

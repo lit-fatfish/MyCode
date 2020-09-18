@@ -11,6 +11,7 @@ def get_file_lenght(filepath):
 
 print(get_file_lenght("config.json"))
 
+
 # if not os.path.exists("hello.py"):
 #   print("不存在")
 

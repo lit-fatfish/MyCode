@@ -1,4 +1,4 @@
-idea/
+.idea/
 *.mp4
 test.py
 __pycache__/
