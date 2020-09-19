@@ -10,6 +10,7 @@ from extend.redis_tools import RedisTools
 var = Variables()
 utils = Utils()
 
+utils.timing_check_darkness(5)
 r = RedisTools("172.17.0.1", 6379, "anlly12345", 8)
 
 
@@ -20,10 +21,20 @@ class GetQueue():
         self.open_flag = 0  # 开启自动跟踪标志位
         # task = "0"
         self.line = {
-            "0":{
+            "1":{
                 "1":0,
                 "2":0,
                 "3":0
+            },
+            "2":{
+                "4":0,
+                "5":0,
+                "6":0
+            },
+            "3":{
+                "7":0,
+                "8":0,
+                "9":0
             }
         }
             
@@ -53,7 +64,8 @@ class GetQueue():
         
         r.set_values(key, dic)
         # 清除标志位
-        self.line["0"] = {
+        task_id = str(int((dot_id + 2)/3))
+        self.line[task_id] = {
             "1":0,
             "2":0,
             "3":0
@@ -67,6 +79,15 @@ class GetQueue():
 
     # --------------------处理找板结果-------------------------------
     
+    def find_dot_num(self, line_id):
+        # 根据厂线得出，当前配置有多少个摄像头，用做没找到板时的判断
+        count = 0
+        camera_list = utils.load_json(var.config_path['camera_list'])
+        for index, item in enumerate(camera_list['camera_list']):
+            if item['line_id'] == line_id:
+                count += 1
+        return count
+
 
     def consumer_find_board(self, ch, method, properties, body):
         ch.basic_ack(delivery_tag=method.delivery_tag)
@@ -77,10 +98,11 @@ class GetQueue():
         # 处理找板得到的结果
         
         isboard = result["is_board"]
-        task = result["task_id"]
+        task_id = result["task_id"]
         dot_id = result["camera"]
 
         print("line", self.line)
+        print("task_id", task_id)
         print("dot_id", dot_id)
 
         zset = int(dot_id)
@@ -95,28 +117,29 @@ class GetQueue():
             print("is jiliang ")
         else:
             # 进来就是2，假如找到了就是1
-            self.line[task][dot_id] = 2
+            self.line[task_id][dot_id] = 2
             if int(isboard) == 1:
                 
-                for item in self.line[task]:
+                for item in self.line[task_id]:
                     # print("item",item)
                     # 判断是否存在1
-                    if self.line[task][item] == 1:
+                    if self.line[task_id][item] == 1:
                         print("other program in running")
                         return False
                         
-                self.line[task][dot_id] = 1            
+                self.line[task_id][dot_id] = 1            
             else:
                 print("not found board")
+                dot_num = self.find_dot_num(task_id)
                 count = 0
-                for item in self.line[task]:
+                for item in self.line[task_id]:
                     # print("item",item)
                     # 判断三个是否都是2，不是的话就不执行，是的话就执行当前这个
-                    if self.line[task][item] == 2:
+                    if self.line[task_id][item] == 2:
                         count += 1
                 print("count=",count)
-                if count == 2:
-                    # 3个都没有找到
+                if count == dot_num:
+                    # 都没有找到
                     print("all not found board")
                     pass
                 else:
@@ -127,7 +150,7 @@ class GetQueue():
         for index, item in enumerate(camera_list['camera_list']):
             if item['dot_id'] == dot_id:
                 dn_rtsp = item["dn_rtsp"]
-                camera_rtsp = item["camera_rtsp"]
+                camera_rtsp = item["source_rtsp"]
                 dot_id = item["dot_id"]
                 # 调用计量程序，线程
                 
@@ -139,7 +162,7 @@ class GetQueue():
 
                 elif int(values["type"]) == 2:
                     print(dot_id, "run jiliang program")
-                    self.measurement_thread(dot_id, dn_rtsp,camera_rtsp, dot_id, task)
+                    self.measurement_thread(dot_id, dn_rtsp,camera_rtsp, dot_id, task_id)
                 break
 
         
@@ -178,7 +201,9 @@ class GetQueue():
         
         r.set_values(key, dic)
         # 清除标志位
-        self.line["0"] = {
+
+        task_id = str(int((dot_id + 2)/3))
+        self.line[task_id] = {
             "1":0,
             "2":0,
             "3":0
@@ -200,57 +225,59 @@ class GetQueue():
         t = threading.Thread(target=self.consumer_darkness_thread)
         t.start()
 
-    def check_find_board(self):
-        # 根据配置文件开启或者关闭程序
-        camera_list = utils.load_json(var.config_path['camera_list'])
-        # print(camera_list)
-        for index, item in enumerate(camera_list['camera_list']):
-            dn_rtsp = camera_list['camera_list'][index]["dn_rtsp"]
-            camera_rtsp = camera_list['camera_list'][index]["camera_rtsp"]
-            dot_id = camera_list['camera_list'][index]["dot_id"]
-            if camera_list['camera_list'][index]["track_bool"] == 1:
-                if self.open_flag == 0:
-                    # 开启程序
-                    print(dot_id, "open find_board")
-                    run_camera = 'nohup python /root/app/find_board.py {} {} {} > output_find_board.log 2>&1'.format(
-                        dn_rtsp, camera_rtsp, dot_id)
-                    # print(run_camera)
-                    os.popen(run_camera)
-                    self.open_flag = 1
-                elif self.open_flag == 1:
-                    # 监控程序，假如不在的话，修改配置文件，并设置open_flag =0
+    # 没用到，查不多要删除了
+    # def check_find_board(self):
+    #     # 根据配置文件开启或者关闭程序
+    #     camera_list = utils.load_json(var.config_path['camera_list'])
+    #     # print(camera_list)
+    #     for index, item in enumerate(camera_list['camera_list']):
+    #         dn_rtsp = camera_list['camera_list'][index]["dn_rtsp"]
+    #         camera_rtsp = camera_list['camera_list'][index]["source_rtsp"]
+    #         dot_id = camera_list['camera_list'][index]["dot_id"]
+    #         if camera_list['camera_list'][index]["track_bool"] == 1:
+    #             if self.open_flag == 0:
+    #                 # 开启程序
+    #                 print(dot_id, "open find_board")
+    #                 run_camera = 'nohup python /root/app/find_board.py {} {} {} > output_find_board.log 2>&1'.format(
+    #                     dn_rtsp, camera_rtsp, dot_id)
+    #                 # print(run_camera)
+    #                 os.popen(run_camera)
+    #                 self.open_flag = 1
+    #             elif self.open_flag == 1:
+    #                 # 监控程序，假如不在的话，修改配置文件，并设置open_flag =0
 
-                    # 检测是否打开
-                    command = "ps -ef | grep -v grep | grep " + dn_rtsp + " | grep find_board.py | awk '{print $2}' | wc -l"
-                    # print(command)
-                    camera_run_bool = os.popen(command).read()
-                    if not int(camera_run_bool):
-                        # 修改配置文件
-                        camera_list['camera_list'][index]["track_bool"] = 0
-                        with open(var.config_path['camera_list'], 'w', encoding='utf8')as f:
-                            json.dump(camera_list, f, indent=2)
-                        self.open_flag = 0
-                        print(dot_id, "close find_board")
-            elif camera_list['camera_list'][index]["track_bool"] == 0:
-                command = "ps -ef | grep -v grep | grep " + dn_rtsp + " | grep find_board.py | awk '{print $2}' | wc -l"
-                # print(command)
-                camera_run_bool = os.popen(command).read()
-                if int(camera_run_bool) and self.open_flag == 1:
-                    close_camera = "ps -ef | grep -v grep | grep " + dn_rtsp + " | grep find_board.py | awk '{print $2}' | xargs kill"
+    #                 # 检测是否打开
+    #                 command = "ps -ef | grep -v grep | grep " + dn_rtsp + " | grep find_board.py | awk '{print $2}' | wc -l"
+    #                 # print(command)
+    #                 camera_run_bool = os.popen(command).read()
+    #                 if not int(camera_run_bool):
+    #                     # 修改配置文件
+    #                     camera_list['camera_list'][index]["track_bool"] = 0
+    #                     with open(var.config_path['camera_list'], 'w', encoding='utf8')as f:
+    #                         json.dump(camera_list, f, indent=2)
+    #                     self.open_flag = 0
+    #                     print(dot_id, "close find_board")
+    #         elif camera_list['camera_list'][index]["track_bool"] == 0:
+    #             command = "ps -ef | grep -v grep | grep " + dn_rtsp + " | grep find_board.py | awk '{print $2}' | wc -l"
+    #             # print(command)
+    #             camera_run_bool = os.popen(command).read()
+    #             if int(camera_run_bool) and self.open_flag == 1:
+    #                 close_camera = "ps -ef | grep -v grep | grep " + dn_rtsp + " | grep find_board.py | awk '{print $2}' | xargs kill"
 
-                    os.popen(close_camera)
-                    # print("close_camera", close_camera)
-                    print(dot_id, "close find_board")
-                    self.open_flag = 0
+    #                 os.popen(close_camera)
+    #                 # print("close_camera", close_camera)
+    #                 print(dot_id, "close find_board")
+    #                 self.open_flag = 0
 
     # 找板，等待到结束，主函数调用也会等待
-    def find_board(self, dn_rtsp, camera_rtsp, dot_id, task_id):
+    def find_board(self, dn_rtsp, camera_rtsp, dot_id, task_id, test_type):
         print("in find_board function")
 
-        run_camera = 'nohup python /root/app/find_board.py {} {} {} {} > output_find_board.log 2>&1'.format(dn_rtsp,
+        run_camera = 'nohup python /root/app/find_board.py {} {} {} {} {} > output_find_board.log 2>&1'.format(dn_rtsp,
                                                                                                          camera_rtsp,
                                                                                                          dot_id,
-                                                                                                         task_id)
+                                                                                                         task_id,
+                                                                                                         test_type)
         os.popen(run_camera)
 
 
@@ -259,6 +286,10 @@ class GetQueue():
 
     # 开启计量程序
     def measurement (self, zset, dn_rtsp, camera_rtsp, dot_id, task_id):
+       
+        
+        print("dot_id=",dot_id, "darkness start")
+
         # 开启计量
         blacktest_id = "blacktest_" + dot_id
         filename = str(int(time.time()))
@@ -301,7 +332,7 @@ class GetQueue():
         while True:
             time.sleep(1)
             # 读队列
-            self.check_find_board()
+            # self.check_find_board()
             zset = r.read_queue("waitReasoningList")
             end_signal = r.read_queue("reasoningEndList")
             if end_signal :
@@ -332,15 +363,15 @@ class GetQueue():
                 for index, item in enumerate(camera_list['camera_list']):
                     if item['dot_id'] == str(zset):
                         dn_rtsp = item["dn_rtsp"]
-                        camera_rtsp = item["camera_rtsp"]
+                        camera_rtsp = item["source_rtsp"]
                         dot_id = item["dot_id"]
                         # 启动线程
-                        task_id = str(int(int(dot_id)/4))
-                        print("task_id=", task_id, " dot_id =", dot_id)
+                        task_id = str(int((int(dot_id) + 2)/3))
+                        print("type=", values["type"], "task_id=", task_id, " dot_id =", dot_id)
                         # print("find board in main")
                         # 清除当前球机的标志位
                         self.line[task_id][dot_id] = 0
-                        self.find_board(dn_rtsp, camera_rtsp, dot_id, task_id)  # 启动找板程序
+                        self.find_board(dn_rtsp, camera_rtsp, dot_id, task_id, values["type"])  # 启动找板程序
                         break
         
     
