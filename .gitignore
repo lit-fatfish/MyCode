@@ -1,4 +1,6 @@
 /.idea/
 *.mp4
 test.py
+*.JPG
+*.zip
 __pycache__/
