@@ -1,0 +1,14 @@
+- hosts: ring_deploy
+  gather_facts: true
+  remote_user: anlly
+  become: true
+  vars:
+    ring_deploy_path: "{{ ring_deploy_path }}"
+    build_path: "{{ build_path }}"
+    build_name: "{{ build_name }}"
+    source_folder_path: "/tmp/build_path/{{ source_folder_name }}"
+    deploy_folder: "{{ deploy_folder }}"
+    project_path: /home/anlly/Ring
+    cover_install: "{{ cover_install }}"
+  roles:
+    - "{{ task_type }}"
