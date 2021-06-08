@@ -1,0 +1,22 @@
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/middle_rb_0.75/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_0.75/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/near_rb_0.75/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_0.75/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/middle_rb_1/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/near_rb_1/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/middle_rb_1.5/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1.5/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/near_rb_1.5/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1.5/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/middle_rb_1.25/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1.25/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/near_rb_1.25/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1.25/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/middle_rb_1.75/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1.75/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/near_rb_1.75/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_1.75/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/middle_rb_2/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_2/
+mv /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/near_rb_2/* /home/anlly/devdata/app/tf_data/huanjian/board_20210423/dataset/far_rb_2/
+
+
+
+cp board_rb_0.75/*  /home/anlly/devdata/app/tf_data/tf_test_data/board_rb/board_20210423
+cp board_rb_1/*  /home/anlly/devdata/app/tf_data/tf_test_data/board_rb/board_20210423
+cp board_rb_1.25/*  /home/anlly/devdata/app/tf_data/tf_test_data/board_rb/board_20210423
+cp board_rb_1.5/*  /home/anlly/devdata/app/tf_data/tf_test_data/board_rb/board_20210423
+cp board_rb_1.75/*  /home/anlly/devdata/app/tf_data/tf_test_data/board_rb/board_20210423
+cp board_rb_2/*  /home/anlly/devdata/app/tf_data/tf_test_data/board_rb/board_20210423
+

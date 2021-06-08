@@ -30,6 +30,8 @@ ssh-copy-id  -p 9022 anlly@173.19.29.100 √ 部署完成
 ssh-copy-id  -p 9022 anlly@173.19.17.100 √ 驱动有问题
 ssh-copy-id  -p 9022 anlly@173.19.38.100 √ 连接不上,驱动有问题
 ssh-copy-id  -p 9022 anlly@173.19.42.100 √ 部署完成
+ssh-copy-id  -p 9022 anlly@173.19.35.100 √ 部署完成
+
 
 
 passwd anlly
@@ -73,6 +75,7 @@ ssh -p 9022 anlly@173.19.17.100
 ssh -p 9022 anlly@173.19.38.100
 ssh -p 9022 anlly@173.19.29.100
 ssh -p 9022 anlly@173.19.42.100
+ssh -p 9022 anlly@173.19.35.100
 
 
 
@@ -121,6 +124,9 @@ fuxig2604
 
 date
 sudo date -s '-8hour'
+sudo hwclock --systohc
+
+sudo date -s '-1hour'
 
 cd /home/anlly/Ring/rath/soft/tar/ && tar zxvf psutil-5.7.3.tar.gz 
 cd psutil-5.7.3/ && python setup.py install
@@ -161,7 +167,8 @@ vim /etc/hosts
 32 
 33
 34
-36 没开
+35 
+36 √
 37 
 39
 40

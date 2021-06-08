@@ -1,0 +1,83 @@
+{
+    "byVehicleType": 5,
+    "byPlateType": 0,
+    "icarColorNum": 1,
+    "byColorDepth": 0,
+    "byColor": 255,
+    "byDriveChan": 2,
+    "wVehicleLogoRecog": 0,
+    "wSpeed": 0,
+    "passTime": "2021-04-08 08:03:12.353",
+    "szCarPlate": "蓝粤Y669C8",
+    "imagePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8.jpg",
+    "imagePlatePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8.plate.jpg",
+    "videoPath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8.wh264",
+    "videoframetotal": 211,
+    "firstframeTime": 1617840188908,
+    "appearframenum": 86,
+    "cameracode": "A44200000101",
+    "stuPlateRect": {
+        "fX": 0.6690000295639038,
+        "fY": 0.8759999871253967,
+        "fWidth": 0.04899999871850014,
+        "fHeight": 0.013000000268220902
+    },
+    "lstforward": [
+        {
+            "byDriveChan": 3,
+            "bfcha": -403,
+            "passTime": "2021-04-08 08:03:14.734",
+            "szCarPlate": "蓝粤T2R516",
+            "stuPlateRect": {
+                "fX": 0.2879999876022339,
+                "fY": 0.7229999899864197,
+                "fWidth": 0.04399999976158142,
+                "fHeight": 0.013000000268220902
+            },
+            "imagePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward01.jpg",
+            "imagePlatePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward01.plate.jpg"
+        },
+        {
+            "byDriveChan": 1,
+            "bfcha": 286,
+            "passTime": "2021-04-08 08:03:10.551",
+            "szCarPlate": "蓝粤T2T176",
+            "stuPlateRect": {
+                "fX": 0.7570000290870667,
+                "fY": 0.6430000066757202,
+                "fWidth": 0.039000000804662707,
+                "fHeight": 0.010999999940395356
+            },
+            "imagePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward02.jpg",
+            "imagePlatePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward02.plate.jpg"
+        },
+        {
+            "byDriveChan": 2,
+            "bfcha": 993,
+            "passTime": "2021-04-08 08:03:09.510",
+            "szCarPlate": "蓝粤T669C8",
+            "stuPlateRect": {
+                "fX": 0.4440000057220459,
+                "fY": 0.6380000114440918,
+                "fWidth": 0.03799999877810478,
+                "fHeight": 0.009999999776482582
+            },
+            "imagePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward03.jpg",
+            "imagePlatePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward03.plate.jpg"
+        },
+        {
+            "byDriveChan": 2,
+            "bfcha": 2575,
+            "passTime": "2021-04-08 08:03:08.160",
+            "szCarPlate": "蓝粤T056L3",
+            "stuPlateRect": {
+                "fX": 0.43700000643730166,
+                "fY": 0.6510000228881836,
+                "fWidth": 0.03700000047683716,
+                "fHeight": 0.009999999776482582
+            },
+            "imagePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward04.jpg",
+            "imagePlatePath": "D:\\AllData\\HYVideo\\2021-04-08\\小榄镇小榄大道中1_20210408_080312_353_L02_蓝粤Y669C8_forward04.plate.jpg"
+        }
+    ]
+}

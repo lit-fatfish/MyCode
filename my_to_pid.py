@@ -266,8 +266,6 @@ def read_list_file(list_name, save_position):
                 pid_json_data['metadata'] = {}
                 pid_json_data['project']['vid_list'] = []
 
-            
-
     if file_num > 0:
         file_num += 1
         pid_json_data['project']['pid'] = pid_name + "-" + str(file_num)

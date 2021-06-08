@@ -1,0 +1,196 @@
+start front_746.jpg >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+0:back (score = 0.00479)
+1:front (score = 0.99521)
+end front_746.jpg >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+2021-05-29 02:16:22.050084: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:17:00.0
+2021-05-29 02:16:22.050505: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 1 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:65:00.0
+2021-05-29 02:16:22.050568: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2021-05-29 02:16:22.050585: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2021-05-29 02:16:22.050611: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2021-05-29 02:16:22.050623: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2021-05-29 02:16:22.050636: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2021-05-29 02:16:22.050645: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2021-05-29 02:16:22.050658: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-05-29 02:16:22.052161: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0, 1
+2021-05-29 02:16:22.052338: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-05-29 02:16:22.052357: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 1 
+2021-05-29 02:16:22.052371: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N N 
+2021-05-29 02:16:22.052379: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 1:   N N 
+2021-05-29 02:16:22.053617: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory) -> physical GPU (device: 0, name: TITAN RTX, pci bus id: 0000:17:00.0, compute capability: 7.5)
+2021-05-29 02:16:22.053993: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 311 MB memory) -> physical GPU (device: 1, name: TITAN RTX, pci bus id: 0000:65:00.0, compute capability: 7.5)
+start front_747.jpg >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+0:back (score = 0.28806)
+1:front (score = 0.71194)
+end front_747.jpg >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+2021-05-29 02:16:22.161229: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:17:00.0
+2021-05-29 02:16:22.161736: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 1 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:65:00.0
+2021-05-29 02:16:22.161847: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2021-05-29 02:16:22.161866: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2021-05-29 02:16:22.161876: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2021-05-29 02:16:22.161887: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2021-05-29 02:16:22.161907: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2021-05-29 02:16:22.161918: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2021-05-29 02:16:22.161930: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-05-29 02:16:22.163838: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0, 1
+2021-05-29 02:16:22.163927: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-05-29 02:16:22.163940: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 1 
+2021-05-29 02:16:22.163949: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N N 
+2021-05-29 02:16:22.163957: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 1:   N N 
+2021-05-29 02:16:22.165575: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory) -> physical GPU (device: 0, name: TITAN RTX, pci bus id: 0000:17:00.0, compute capability: 7.5)
+2021-05-29 02:16:22.165998: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 311 MB memory) -> physical GPU (device: 1, name: TITAN RTX, pci bus id: 0000:65:00.0, compute capability: 7.5)
+start front_748.jpg >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+0:back (score = 0.00159)
+1:front (score = 0.99841)
+end front_748.jpg >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+-13.612466812133789
+
+
+===============================================================
+1 1622255925.0615754
+2021-05-29 02:38:45.113451: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:17:00.0
+2021-05-29 02:38:45.114132: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 1 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:65:00.0
+2021-05-29 02:38:45.114161: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2021-05-29 02:38:45.114170: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2021-05-29 02:38:45.114178: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2021-05-29 02:38:45.114187: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2021-05-29 02:38:45.114195: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2021-05-29 02:38:45.114204: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2021-05-29 02:38:45.114212: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-05-29 02:38:45.116126: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0, 1
+2021-05-29 02:38:45.116192: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-05-29 02:38:45.116199: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 1 
+2021-05-29 02:38:45.116208: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N N 
+2021-05-29 02:38:45.116214: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 1:   N N 
+2021-05-29 02:38:45.117570: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory) -> physical GPU (device: 0, name: TITAN RTX, pci bus id: 0000:17:00.0, compute capability: 7.5)
+2021-05-29 02:38:45.118208: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 22824 MB memory) -> physical GPU (device: 1, name: TITAN RTX, pci bus id: 0000:65:00.0, compute capability: 7.5)
+2 1622255925.1330214
+3 1622255925.1427279
+4 1622255925.1427853
+5 1622255925.1432128
+6 1622255925.1432624
+1 1622255925.1433182
+2021-05-29 02:38:45.184158: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:17:00.0
+2021-05-29 02:38:45.184829: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 1 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:65:00.0
+2021-05-29 02:38:45.184859: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2021-05-29 02:38:45.184868: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2021-05-29 02:38:45.184877: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2021-05-29 02:38:45.184897: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2021-05-29 02:38:45.184905: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2021-05-29 02:38:45.184913: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2021-05-29 02:38:45.184920: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-05-29 02:38:45.186780: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0, 1
+2021-05-29 02:38:45.186843: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-05-29 02:38:45.186850: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 1 
+2021-05-29 02:38:45.186856: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N N 
+2021-05-29 02:38:45.186862: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 1:   N N 
+2021-05-29 02:38:45.188156: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory) -> physical GPU (device: 0, name: TITAN RTX, pci bus id: 0000:17:00.0, compute capability: 7.5)
+2021-05-29 02:38:45.188793: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 22824 MB memory) -> physical GPU (device: 1, name: TITAN RTX, pci bus id: 0000:65:00.0, compute capability: 7.5)
+2 1622255925.2039585
+3 1622255925.2135935
+4 1622255925.2136505
+5 1622255925.2140331
+6 1622255925.214076
+
+======================================================================================================
+1 1622257390.4895966
+load_img_1 1622257390.489612
+load_img_2 1622257390.4902635
+load_img_3 1622257390.4930785
+load_img_4 1622257390.5292652
+load_img_5 1622257390.5300589
+2021-05-29 03:03:10.530849: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:17:00.0
+2021-05-29 03:03:10.531524: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 1 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:65:00.0
+2021-05-29 03:03:10.531556: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2021-05-29 03:03:10.531566: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2021-05-29 03:03:10.531575: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2021-05-29 03:03:10.531585: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2021-05-29 03:03:10.531594: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2021-05-29 03:03:10.531603: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2021-05-29 03:03:10.531613: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-05-29 03:03:10.533477: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0, 1
+2021-05-29 03:03:10.533540: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-05-29 03:03:10.533548: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 1 
+2021-05-29 03:03:10.533554: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N N 
+2021-05-29 03:03:10.533559: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 1:   N N 
+2021-05-29 03:03:10.534877: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory) -> physical GPU (device: 0, name: TITAN RTX, pci bus id: 0000:17:00.0, compute capability: 7.5)
+2021-05-29 03:03:10.535523: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 22824 MB memory) -> physical GPU (device: 1, name: TITAN RTX, pci bus id: 0000:65:00.0, compute capability: 7.5)
+load_img_6 1622257390.5504372
+2 1622257390.5504806
+3 1622257390.5608568
+4 1622257390.560911
+5 1622257390.5613415
+6 1622257390.5613837
+
+1 1622257390.5614314
+load_img_1 1622257390.561446
+load_img_2 1622257390.5620975
+load_img_3 1622257390.5649178
+load_img_4 1622257390.6058471
+load_img_5 1622257390.6066685
+2021-05-29 03:03:10.607440: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:17:00.0
+2021-05-29 03:03:10.608115: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 1 with properties: 
+name: TITAN RTX major: 7 minor: 5 memoryClockRate(GHz): 1.77
+pciBusID: 0000:65:00.0
+2021-05-29 03:03:10.608143: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2021-05-29 03:03:10.608152: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2021-05-29 03:03:10.608162: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2021-05-29 03:03:10.608173: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2021-05-29 03:03:10.608181: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2021-05-29 03:03:10.608190: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2021-05-29 03:03:10.608199: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2021-05-29 03:03:10.610064: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0, 1
+2021-05-29 03:03:10.610128: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1159] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-05-29 03:03:10.610139: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1165]      0 1 
+2021-05-29 03:03:10.610145: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 0:   N N 
+2021-05-29 03:03:10.610151: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1178] 1:   N N 
+2021-05-29 03:03:10.611468: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory) -> physical GPU (device: 0, name: TITAN RTX, pci bus id: 0000:17:00.0, compute capability: 7.5)
+2021-05-29 03:03:10.612108: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1304] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 22824 MB memory) -> physical GPU (device: 1, name: TITAN RTX, pci bus id: 0000:65:00.0, compute capability: 7.5)
+load_img_6 1622257390.6269288
+2 1622257390.6269686
+3 1622257390.638667
+4 1622257390.6387045
+5 1622257390.6389997
+6 1622257390.639018
+
+
+
+
+
+
+docker run --gpus all --name tensorflow --restart=always \
+--network=docker_ring \
+--link=ring_redis:redis_data \
+--privileged  \
+-p 6006:6006 \
+-p 8888:8888 \
+-e LANG=C.UTF-8 \
+-v /home/anlly/app:/root/app \
+-w /root/app -d tensorflow/tensorflow:1.15.0-gpu-py3-jupyter 
+
+
+python classify_image_button.py \
+  --model_path /mnt/tf_data/tf_models/button/button_20210528/button_20210528_inception_v3.pb \
+  --label_path /mnt/tf_data/button/button_20210528/labels.txt \
+  --image_path /mnt/tf_data/button/button_20210528/test_img

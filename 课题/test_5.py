@@ -31,6 +31,8 @@ new_black_img = np.zeros(img.shape)
 
 poly_img =  cv2.polylines(new_black_img, contours, True, (255, 255, 255), 2)
 cv2.imwrite("./dst_file/5_poly.jpg", poly_img)
+cv2.imwrite("./dst_file/5_thresh.jpg", thresh)
+
 
 
 plt.show()
