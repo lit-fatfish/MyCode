@@ -3,4 +3,5 @@
 test.py
 *.JPG
 *.zip
+*.txt
 __pycache__/
